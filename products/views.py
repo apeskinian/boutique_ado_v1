@@ -7,17 +7,30 @@ from .models import Product, Category
 def all_products(request):
     '''
     A view to show all products including sorting and search queries
-    '''
+    ''' 
     products = Product.objects.all()
     query = None
     categories = None
+    sort = None
+    direction = None
 
     if request.GET:
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+            if sortkey == 'name':
+                sortkey = 'lower_name'
+                products = Product.objects.annotate(lower_name=Lower('name'))
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortkey = f'-{sortkey}'
+            products = Product.objects.order_by(sortkey)
+
         if 'category' in request.GET:
             categories = request.GET['category'].split(',')
             products = Product.objects.filter(category__name__in=categories)
             categories = Category.objects.filter(name__in=categories)
-
 
         if 'q' in request.GET:
             query = request.GET['q']
@@ -31,10 +44,13 @@ def all_products(request):
             queries = Q(name__icontains=query) | Q(description__icontains=query)
             products = Product.objects.filter(queries)
 
+    current_sorting = f'{sort}_{direction}'
+
     context = {
         'products': products,
         'search_term': query,
         'current_categories': categories,
+        'current_sorting': current_sorting,
     }
     return render(request, 'products/products.html', context)
 
