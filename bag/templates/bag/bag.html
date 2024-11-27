@@ -45,8 +45,37 @@
                                     <td class="py-3">
                                         <p class="my-0">${{ item.product.price }}</p>
                                     </td>
-                                    <td class="py-3 w-25">
-                                        <p class="my-0">{{ item.quantity }}</p>
+                                    <td class="py-3 w-25 table-form-container">
+                                        <form  method="POST" action="" class="form update-form">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <button class="decrement-qty btn btn-sm btn-black rounded-0"
+                                                        data-item_id="{{ item.item_id }}" id="decrement-qty_{{ item.item_id }}">
+                                                        <span>
+                                                            <i class="fa-solid fa-minus fa-sm"></i>
+                                                        </span>
+                                                    </button>
+                                                    <input class="form-control from-control-sm qty_input" type="number"
+                                                        name="quantity" value="{{ item.quantity }}" min="1" max="99"
+                                                        data-item_id="{{ item.item_id }}"
+                                                        id="id_qty_{{ item.item_id }}">
+                                                    <button class="increment-qty btn btn-sm btn-black rounded-0"
+                                                        data-item_id="{{ item.item_id }}" id="increment-qty_{{ item.item_id }}">
+                                                        <span>
+                                                            <i class="fa-solid fa-plus fa-sm"></i>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                {% if item.product.has_sizes %}
+                                                    <input type="hidden" name="product_size" value="{{ item.size }}">
+                                                {% endif %}
+                                            </div>
+                                        </form>
+                                        <div class="d-flex justify-content-between">
+                                            <a class="update-link text-info btt-link"><small>Update</small></a>
+                                            <a class="remove-item text-danger btt-link" id="remove_{{ item.item_id }}" data-size="{{ item.size }}"><small>Remove</small></a>
+                                        </div>
                                     </td>
                                     <td class="py-3">
                                         <p class="my-0">${{ item.product.price }}</p>
@@ -95,4 +124,29 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block extra_js %}
+{{ block.super }}
+{% include 'products/includes/quantity_input_script.html' %}
+<script type="text/javascript">
+    // Update qty on click
+    $('.update-link').click(function(e) {
+        var form = $(this).closest('table-form-container').find('.update-form');
+        form.submit();
+    })
+    // Remove item and reload on click
+    $('.remove-item').click(function(e) {
+        var csrfToken = '{{ csrf_token }}';
+        var itemId = $(this).attr('id').split('remove_')[1];
+        var size = $(this).data('size');
+        var url = `/bag/remove/${itemId}`;
+        var data = {'csrfmiddlewaretoken': csrfToken, 'size': size};
+
+        $.post(url, data)
+         .done(function() {
+            location.reload();
+         })
+    })
+</script>
 {% endblock %}
