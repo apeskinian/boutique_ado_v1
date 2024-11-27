@@ -53,18 +53,22 @@
                                             {% csrf_token %}
                                             <div class="form-group">
                                                 <div class="input-group">
-                                                    <button class="decrement-qty btn btn-sm btn-black rounded-0"
-                                                        data-item_id="{{ item.item_id }}" id="decrement-qty_{{ item.item_id }}">
+                                                    <button 
+                                                        class="decrement-qty btn btn-sm btn-black rounded-0"
+                                                        data-item_id="{{ item.item_id }}{% if item.product.has_sizes %}_{{ item.size }}{% endif %}"
+                                                        id="decrement-qty_{{ item.item_id }}{% if item.product.has_sizes %}_{{ item.size }}{% endif %}">
                                                         <span>
                                                             <i class="fa-solid fa-minus fa-sm"></i>
                                                         </span>
                                                     </button>
                                                     <input class="form-control from-control-sm qty_input" type="number"
                                                         name="quantity" value="{{ item.quantity }}" min="1" max="99"
-                                                        data-item_id="{{ item.item_id }}"
-                                                        id="id_qty_{{ item.item_id }}">
-                                                    <button class="increment-qty btn btn-sm btn-black rounded-0"
-                                                        data-item_id="{{ item.item_id }}" id="increment-qty_{{ item.item_id }}">
+                                                        data-item_id="{{ item.item_id }}{% if item.product.has_sizes %}_{{ item.size }}{% endif %}"
+                                                        id="id_qty_{{ item.item_id }}{% if item.product.has_sizes %}_{{ item.size }}{% endif %}">
+                                                    <button
+                                                        class="increment-qty btn btn-sm btn-black rounded-0"
+                                                        data-item_id="{{ item.item_id }}{% if item.product.has_sizes %}_{{ item.size }}{% endif %}"
+                                                        id="increment-qty_{{ item.item_id }}{% if item.product.has_sizes %}_{{ item.size }}{% endif %}">
                                                         <span>
                                                             <i class="fa-solid fa-plus fa-sm"></i>
                                                         </span>
