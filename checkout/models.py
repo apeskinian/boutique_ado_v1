@@ -70,7 +70,7 @@ class Order(models.Model):
     def __str__(self):
         return self.order_number 
 
-class orderLineItem(models.Model):
+class OrderLineItem(models.Model):
     order = models.ForeignKey(
         Order,
         null=False,
