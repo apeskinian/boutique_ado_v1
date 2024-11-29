@@ -27,13 +27,10 @@ class StripeWH_Handler:
         '''
         Handle the payment_intent.succeeded webhook from Stripe
         '''
-        print('HANDLER STARTED....')
         intent = event.data.object
         pid = intent.id
         bag = intent.metadata.bag
-        print('TESTING FIRST SAVE_INFO INSTANCE...')
         save_info = intent.metadata.save_info
-        print('FIRST SAVE_INFO INSTANCE PASSED...')
         # Get the Charge object
         stripe_charge = stripe.Charge.retrieve(
             intent.latest_charge
