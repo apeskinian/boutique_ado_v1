@@ -13,7 +13,7 @@ def webhook(request):
     Listen for webhooks from Stripe
     '''
     # Setup
-    wh_secret = settings.STRIPE_WH_SECRET
+    # wh_secret = settings.STRIPE_WH_SECRET
     stripe.api_key = settings.STRIPE_SECRET_KEY
 
     # Get the webhooks data and verify it's signature
@@ -22,8 +22,11 @@ def webhook(request):
     event = None
 
     try:
-        event = stripe.Event.construct_event(
-        payload, sig_header, wh_secret
+        # event = stripe.Event.construct_event(
+        # payload, sig_header, wh_secret
+        # )
+        event = stripe.Event.construct_from(
+            json.loads(payload), stripe.api_key
         )
     except ValueError as e:
         # Invalid payload
