@@ -4,7 +4,7 @@
 {% block head_title %}
     {% translate "Sign In" %}
 {% endblock head_title %}
-{% block content %}
+{% block inner_content %}
     {% element h1 %}
         {% translate "Enter Sign-In Code" %}
     {% endelement %}
@@ -37,4 +37,4 @@
         <input type="hidden" name="next" value="{% url 'account_login' %}">
         {% csrf_token %}
     </form>
-{% endblock content %}
+{% endblock inner_content %}

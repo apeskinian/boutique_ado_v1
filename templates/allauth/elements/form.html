@@ -2,6 +2,7 @@
 <form method="{{ attrs.method }}" action="{{ attrs.action }}">
     {% slot body %}
     {% endslot %}
+    <a class="btn btn-outline-black rounded-0" href="{% url 'home' %}">Home</a>
     {% slot actions %}
     {% endslot %}
 </form>

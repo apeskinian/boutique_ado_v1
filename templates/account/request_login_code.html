@@ -4,7 +4,7 @@
 {% block head_title %}
     {% translate "Sign In" %}
 {% endblock head_title %}
-{% block content %}
+{% block inner_content %}
     {% element h1 %}
         {% translate "Mail me a sign-in code" %}
     {% endelement %}
@@ -29,4 +29,4 @@
     {% element button href=login_url tags="link" %}
         {% translate "Other sign-in options" %}
     {% endelement %}
-{% endblock content %}
+{% endblock inner_content %}
