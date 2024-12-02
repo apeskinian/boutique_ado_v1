@@ -1,24 +1,23 @@
-{% extends "account/base_manage_password.html" %}
+{% extends "openid/base.html" %}
 {% load i18n %}
 {% load allauth %}
 {% block head_title %}
-    {% trans "Set Password" %}
+    OpenID {% translate "Sign In" %}
 {% endblock head_title %}
 {% block content %}
     {% element h1 %}
-        {% trans "Set Password" %}
+        OpenID {% trans 'Sign In' %}
     {% endelement %}
-    {% url 'account_set_password' as action_url %}
+    {% url 'openid_login' as action_url %}
     {% element form method="post" action=action_url %}
         {% slot body %}
             {% csrf_token %}
-            {{ redirect_field }}
-            {% element fields form=form %}
+            {% element fields form=form unlabeled=True %}
             {% endelement %}
         {% endslot %}
         {% slot actions %}
-            {% element button type="submit" name="action" %}
-                {% trans 'Set Password' %}
+            {% element button type="submit" %}
+                {% translate "Sign In" %}
             {% endelement %}
         {% endslot %}
     {% endelement %}

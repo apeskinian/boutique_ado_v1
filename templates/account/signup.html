@@ -3,10 +3,10 @@
 {% block head_title %}
     {% trans "Signup" %}
 {% endblock head_title %}
-{% block inner_content %}
-    <hr>
-    <h2 class="logo-font mb-4">{% trans "Sign Up" %}</h2>
-    <hr> 
+{% block content %}
+    {% element h1 %}
+        {% trans "Sign Up" %}
+    {% endelement %}
     {% setvar link %}
         <a href="{{ login_url }}">
         {% endsetvar %}
@@ -26,7 +26,6 @@
                 {{ redirect_field }}
             {% endslot %}
             {% slot actions %}
-                <a class="btn btn-outline-black rounded-0" href="{% url 'home' %}">Home</a>
                 {% element button tags="prominent,signup" type="submit" %}
                     {% trans "Sign Up" %}
                 {% endelement %}
@@ -43,4 +42,4 @@
     {% if SOCIALACCOUNT_ENABLED %}
         {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
     {% endif %}
-{% endblock inner_content %}
+{% endblock content %}

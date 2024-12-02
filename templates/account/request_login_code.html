@@ -4,10 +4,10 @@
 {% block head_title %}
     {% translate "Sign In" %}
 {% endblock head_title %}
-{% block inner_content %}
-    <hr>
-    <h2 class="logo-font mb-4">{% trans "Mail me a sign-in code" %}</h2>
-    <hr> 
+{% block content %}
+    {% element h1 %}
+        {% translate "Mail me a sign-in code" %}
+    {% endelement %}
     {% element p %}
         {% blocktranslate %}You will receive an email containing a special code for a password-free sign-in.{% endblocktranslate %}
     {% endelement %}
@@ -29,4 +29,4 @@
     {% element button href=login_url tags="link" %}
         {% translate "Other sign-in options" %}
     {% endelement %}
-{% endblock inner_content %}
+{% endblock content %}

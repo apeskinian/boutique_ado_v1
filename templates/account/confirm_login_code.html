@@ -4,10 +4,10 @@
 {% block head_title %}
     {% translate "Sign In" %}
 {% endblock head_title %}
-{% block inner_content %}
-    <hr>
-    <h2 class="logo-font mb-4">{% trans "Enter Sign-In Code" %}</h2>
-    <hr> 
+{% block content %}
+    {% element h1 %}
+        {% translate "Enter Sign-In Code" %}
+    {% endelement %}
     {% setvar email_link %}
         <a href="mailto:{{ email }}">{{ email }}</a>
     {% endsetvar %}
@@ -37,4 +37,4 @@
         <input type="hidden" name="next" value="{% url 'account_login' %}">
         {% csrf_token %}
     </form>
-{% endblock inner_content %}
+{% endblock content %}
