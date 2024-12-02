@@ -37,6 +37,21 @@
     border: 1px solid #000;
 }
 
+select,
+select option {
+  border: solid 1px #000 !important;
+  color: #000 !important;
+  height: 50px !important;
+}
+
+select:invalid {
+  color: #aab7c4 !important;
+}
+
+select option[value=""] {
+  color: #aab7c4 !important;
+}
+
 #loading-overlay {
   display: none;
   position: fixed;
