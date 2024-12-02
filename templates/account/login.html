@@ -4,10 +4,10 @@
 {% block head_title %}
     {% trans "Sign In" %}
 {% endblock head_title %}
-{% block content %}
-    {% element h1 %}
-        {% trans "Sign In TEST" %}
-    {% endelement %}
+{% block inner_content %}
+    <hr>
+    <h2 class="logo-font mb-4">{% trans "Sign In TEST" %}</h2>
+    <hr>     
     {% if not SOCIALACCOUNT_ONLY %}
         {% setvar link %}
             <a href="{{ signup_url }}">
@@ -22,11 +22,12 @@
         {% element form form=form method="post" action=login_url tags="entrance,login" %}
             {% slot body %}
                 {% csrf_token %}
-                {% element fields form=form unlabeled=True %}
+                {% element fields form=form %}
                 {% endelement %}
                 {{ redirect_field }}
             {% endslot %}
             {% slot actions %}
+                <a class="btn btn-outline-black rounded-0" href="{% url 'home' %}">Home</a>
                 {% element button type="submit" tags="prominent,login" %}
                     {% trans "Sign In" %}
                 {% endelement %}
@@ -52,7 +53,7 @@
     {% if SOCIALACCOUNT_ENABLED %}
         {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
     {% endif %}
-{% endblock content %}
+{% endblock inner_content %}
 {% block extra_body %}
     {{ block.super }}
     {% if PASSKEY_LOGIN_ENABLED %}
