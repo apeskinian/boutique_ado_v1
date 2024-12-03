@@ -55,7 +55,6 @@ class StripeWH_Handler:
         pid = intent.id
         bag = intent.metadata.bag
         save_info = intent.metadata.save_info
-        print('SAVE INFO FROM WEBHOOK HANDLER...', save_info)
         # Get the Charge object
         stripe_charge = stripe.Charge.retrieve(
             intent.latest_charge
@@ -69,7 +68,6 @@ class StripeWH_Handler:
         for field, value in shipping_details.address.items():
             if value == '':
                 shipping_details.address[field] = None
-
 
         # Update profile info if save_info was checked
         profile = None

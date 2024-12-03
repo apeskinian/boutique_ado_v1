@@ -14,7 +14,6 @@ import json
 
 @require_POST
 def cache_checkout_data(request):
-    print('CACHING SAVE INFO AS...', request.session.get('save_info'))
     try:
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -23,7 +22,6 @@ def cache_checkout_data(request):
             'save_info': request.POST.get('save_info'),
             'username': request.user,
         })
-        print('CACHING SAVE INFO AGAIN AS...', request.session.get('save_info'))
         return HttpResponse(status=200)
     except Exceptin as e:
         messages.error(request, 'Sorry, your payment cannot be processed \
@@ -137,7 +135,6 @@ def checkout_success(request, order_number):
     Handle successful checkouts
     '''
     save_info = request.session.get('save_info')
-    print('SAVE INFO FROM CHECKOUT SUCCESS...', save_info)
     order = get_object_or_404(Order, order_number=order_number)
 
     if request.user.is_authenticated:
