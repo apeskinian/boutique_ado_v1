@@ -17,11 +17,20 @@ def cache_checkout_data(request):
     try:
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
+
+        # This does not seem to be saving the correct
+        # state for the save-info checkbox?
+        # save_info = request.POST.get('save_info')
+
+        # Manual setting for testing
+        save_info = False
+
         stripe.PaymentIntent.modify(pid, metadata={
             'bag': json.dumps(request.session.get('bag', {})),
-            'save_info': request.POST.get('save_info'),
+            'save_info': save_info,
             'username': request.user,
         })
+        print('SETTING SAVE INFO METADATA AS:' ,save_info)
         return HttpResponse(status=200)
     except Exceptin as e:
         messages.error(request, 'Sorry, your payment cannot be processed \
@@ -76,6 +85,7 @@ def checkout(request):
                     messages.error(request, "One of the products in your bag wasn't found")
                     order.delete()
                     return redirect(reverse('view_bag'))
+            print('SAVE INFO SHOWING IN CHECKOUT VIEW AS...', request.POST.get('save-info'))
             request.session['save_info'] = 'save-info' in request.POST
             return redirect(reverse('checkout_success', args=[order.order_number]))
         else:
