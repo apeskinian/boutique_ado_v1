@@ -91,7 +91,7 @@
                         <div class="form-check form-check-inline mr-0">
                             {% if user.is_authenticated %}
                                 <label for="id-save-info" class="form-check-label">Save this delivery information to my profile.</label>
-                                <input type="checkbox" class="form-check-input ms-2 me-0" id="id-save-info" name="save_info" checked>
+                                <input type="checkbox" class="form-check-input ms-2 me-0" id="id-save-info" name="save-info" checked>
                             {% else %}    
                                 <label for="id-save-info" class="form-check-label"></label>
                                 <a href="{% url 'account_signup' %}" class="text-info">Create an account</a> or
