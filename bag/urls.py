@@ -1,6 +1,5 @@
 from django.urls import path
 from . import views
-from .views import handler404
 
 urlpatterns = [
     path('', views.view_bag, name='view_bag'),
@@ -8,5 +7,3 @@ urlpatterns = [
     path('adjust/<item_id>', views.adjust_bag, name='adjust_bag'),
     path('remove/<item_id>', views.remove_from_bag, name='remove_from_bag'),
 ]
-
-handler404 = 'boutique_ado.views.handler404'
