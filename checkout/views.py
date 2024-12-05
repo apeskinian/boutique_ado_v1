@@ -30,7 +30,6 @@ def cache_checkout_data(request):
             'save_info': save_info,
             'username': request.user,
         })
-        print('SETTING SAVE INFO METADATA AS:' ,save_info)
         return HttpResponse(status=200)
     except Exceptin as e:
         messages.error(request, 'Sorry, your payment cannot be processed \
@@ -85,7 +84,6 @@ def checkout(request):
                     messages.error(request, "One of the products in your bag wasn't found")
                     order.delete()
                     return redirect(reverse('view_bag'))
-            print('SAVE INFO SHOWING IN CHECKOUT VIEW AS...', request.POST.get('save-info'))
             request.session['save_info'] = 'save-info' in request.POST
             return redirect(reverse('checkout_success', args=[order.order_number]))
         else:
