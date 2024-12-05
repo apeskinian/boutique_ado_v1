@@ -129,8 +129,8 @@ WSGI_APPLICATION = 'boutique_ado.wsgi.application'
 
 if 'DATABASE_URL' in os.environ:
     DATABASES = {
-    'default':
-    dj_database_url.parse(os.environ.get('DATABASE_URL'))
+        'default':
+        dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
 else:
     DATABASES = {
@@ -201,8 +201,8 @@ if 'USE_AWS' in os.environ:
     STATICFILES_LOCATION = "static"
     MEDIAFILES_LOCATION = "media"
     STORAGES = {
-    "default": {"BACKEND": "custom_storages.MediaStorage"},
-    "staticfiles": {"BACKEND": "custom_storages.StaticStorage"},
+        "default": {"BACKEND": "custom_storages.MediaStorage"},
+        "staticfiles": {"BACKEND": "custom_storages.StaticStorage"},
     }
 
     # Override static and media URLs in production
