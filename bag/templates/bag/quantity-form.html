@@ -1,0 +1,32 @@
+<form  method="POST" action="{% url 'adjust_bag' item.item_id %}" class="form update-form">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="input-group">
+            <button 
+                class="decrement-qty btn btn-sm btn-black rounded-0"
+                data-item_id="{{ item.item_id }}{% if item.product.has_sizes %}_{{ item.size }}{% endif %}"
+                id="decrement-qty_{{ item.item_id }}{% if item.product.has_sizes %}_{{ item.size }}{% endif %}">
+                <span>
+                    <i class="fa-solid fa-minus fa-sm"></i>
+                </span>
+            </button>
+            <input class="form-control from-control-sm qty_input" type="number"
+                name="quantity" value="{{ item.quantity }}" min="1" max="99"
+                data-item_id="{{ item.item_id }}{% if item.product.has_sizes %}_{{ item.size }}{% endif %}"
+                id="id_qty_{{ item.item_id }}{% if item.product.has_sizes %}_{{ item.size }}{% endif %}">
+            <button
+                class="increment-qty btn btn-sm btn-black rounded-0"
+                data-item_id="{{ item.item_id }}{% if item.product.has_sizes %}_{{ item.size }}{% endif %}"
+                id="increment-qty_{{ item.item_id }}{% if item.product.has_sizes %}_{{ item.size }}{% endif %}">
+                <span>
+                    <i class="fa-solid fa-plus fa-sm"></i>
+                </span>
+            </button>
+        </div>
+        {% if item.product.has_sizes %}
+            <input type="hidden" name="product_size" value="{{ item.size }}">
+        {% endif %}
+    </div>
+</form>
+<a class="update-link text-info btt-link"><small>Update</small></a>
+<a class="remove-item text-danger btt-link" id="remove_{{ item.item_id }}" data-product_size="{{ item.size }}"><small>Remove</small></a>
