@@ -226,12 +226,10 @@ STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET')
 
 if 'TEST_EMAIL' in os.environ:
     # Email setup for console logs
-    print('USING CONSOLE EMAILS')
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = 'boutiqueado@example.com'
 else:
     # Email setup for smtp
-    print('USING PROPER EMAILS')
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_USE_TLS = True
     EMAIL_PORT = 587
